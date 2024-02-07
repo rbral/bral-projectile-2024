@@ -10,7 +10,7 @@ public class ProjectileTest {
     public void getX()
     {
         //given: need to create an object
-        Projectile projectile = new Projectile(31, 20);
+        Projectile projectile = new Projectile(31, 65);
         projectile.setSeconds(2.7);
 
         // when
@@ -25,9 +25,8 @@ public class ProjectileTest {
     @Test
     void getY()
     {
-        //given
         //given: need to create an object
-        Projectile projectile = new Projectile(31, 20);
+        Projectile projectile = new Projectile(31, 65);
         projectile.setSeconds(2.7);
 
         // when
@@ -41,7 +40,7 @@ public class ProjectileTest {
     void getApexTime()
     {
         //given: need to create an object
-        Projectile projectile = new Projectile(31, 20);
+        Projectile projectile = new Projectile(31, 65);
         projectile.setSeconds(2.7);
 
         //when
@@ -50,9 +49,20 @@ public class ProjectileTest {
         // then
         assertEquals(1.05, actual, 0.01);
     }
-    // @test signifies that we are doing a unit test
-    /*
-    3 parts:
-    given, when, then
-     */
+
+    @Test
+    void getPeakY()
+    {
+        // given
+        Projectile projectile = new Projectile(31, 65);
+        projectile.setSeconds(2.7);
+
+        // when
+        double actual = projectile.getPeakY();
+
+        // then
+        assertEquals(114.36, actual, 0.01);
+
+    }
+
 }

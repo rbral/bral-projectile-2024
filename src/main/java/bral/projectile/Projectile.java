@@ -9,7 +9,6 @@ public class Projectile {
     private double radians;
     private double seconds;
     private double velocity;
-    private double v_0_y; // initial vertical component of velocity
 
     public Projectile(double angle, double velocity) {
         this.angle = angle;
@@ -26,30 +25,27 @@ public class Projectile {
     }
 
     public double getY() {
-        return Math.sin(radians) * velocity * seconds - (0.5 * 9.8 * Math.pow(seconds, 2));
+        return Math.sin(radians) * velocity * seconds - (0.5 * 9.8 * seconds * seconds);
     }
 
     /**
-     * @return the time where the Projectile is at its highest point.
+     * @return the time the Projectile is at its highest point.
      */
     public double getApexTime() {
+        return ( velocity * Math.sin(radians) ) / 9.8;
+    }
+
+    /**
+     * @return the highest Y value of the Projectile
+     * formula obtained from: https://study.com/skill/learn/using-multiple-methods-to-calculate-the-maximum-height-of-a-projectile-explanation.html
+     */
+    public double getPeakY()
+    {
         double v_0_y = velocity * Math.sin(radians);
-        return v_0_y / 9.8;
+        return (v_0_y * v_0_y) / 9.8;
     }
 
 
 }
 
 
-
-/*
-What is a class?
-A way to organize our data and methods on that data within your code.
-fundamentally has: 1-data, 2-methods.
-
-to create a test:
-ctrl > shift > t > create new test
-
-
-
- */
