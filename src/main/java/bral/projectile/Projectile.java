@@ -44,6 +44,17 @@ public class Projectile {
         return (Math.sin(radians) * velocity) * (Math.sin(radians) * velocity) / (9.8 * 2);
     }
 
+    public double getInterceptX() {
+        // Assuming initial height (h) is zero for simplicity
+        double t = (2 * velocity * Math.sin(radians)) / 9.8;  // Time of flight
+        double xIntercept = velocity * t * Math.cos(radians);  // Horizontal position at x-intercept
+        return xIntercept;
+    }
+
+
+
+
+
 
 }
 
