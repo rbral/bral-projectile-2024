@@ -11,11 +11,17 @@ import javax.swing.event.ChangeListener;
 public class ProjectileFrame extends JFrame
 {
     private JTextField velocityField;
+
     private JTextField secondsField;
+
     private JSlider angleSlider;
+
     private JLabel resultLabelX;
+
     private JLabel resultLabelY;
+
     private JLabel resultLabelPeakY;
+
     private JLabel resultLabelInterceptX;
 
     public ProjectileFrame()
@@ -125,8 +131,7 @@ public class ProjectileFrame extends JFrame
             resultLabelY.setText(Double.toString(projectile.getY()));
             resultLabelPeakY.setText(Double.toString(projectile.getPeakY()));
             resultLabelInterceptX.setText(Double.toString(projectile.getInterceptX()));
-        }
-        catch (NumberFormatException e)
+        } catch (NumberFormatException e)
         {
             System.out.println("Did not fill in all fields.");
         }
