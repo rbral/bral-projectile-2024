@@ -85,33 +85,14 @@ public class ProjectileFrame extends JFrame
         add(calculateButton);
 
         // calling methods to recalculate and display automatically:
-        velocityField.getDocument().addDocumentListener(new SimpleDocumentListener() {
-            @Override
-            public void update(DocumentEvent e) {
-                recalculateAndDisplay();
-            }
-        });
+        velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
 
-        secondsField.getDocument().addDocumentListener(new SimpleDocumentListener() {
-            @Override
-            public void update(DocumentEvent e) {
-                recalculateAndDisplay();
-            }
-        });
-        angleSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                recalculateAndDisplay();
-            }
-        });
+        secondsField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
+
+        angleSlider.addChangeListener(e -> recalculateAndDisplay());
 
         // a listener that does something when the button is clicked
-        calculateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                recalculateAndDisplay();
-            }
-        });
+        calculateButton.addActionListener(e -> recalculateAndDisplay());
 
     }
 
