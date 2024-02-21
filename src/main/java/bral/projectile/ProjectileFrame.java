@@ -13,10 +13,11 @@ public class ProjectileFrame extends JFrame
     private JTextField velocityField;
     private JTextField secondsField;
     private JSlider angleSlider;
-    private JLabel xResultLabel;
-    private JLabel yResultLabel;
-    private JLabel peakYResultLabel;
-    private JLabel interceptXResultLabel;
+    private JLabel resultLabelX;
+    private JLabel resultLabelY;
+    private JLabel resultLabelPeakY;
+    private JLabel resultLabelInterceptX;
+
     public ProjectileFrame()
     {
         setSize(400, 600);
@@ -25,52 +26,65 @@ public class ProjectileFrame extends JFrame
 
         setLayout(new GridLayout(8, 2));
 
-        // JLabels:
-        JLabel angleLabel = new JLabel("Angle");
-        JLabel secondsLabel = new JLabel("Seconds");
-        JLabel xLabel = new JLabel("x");
-        xResultLabel = new JLabel("_");
 
-        JLabel yLabel = new JLabel("y");
-        yResultLabel = new JLabel("_");
-        JLabel blankLabel = new JLabel();
 
-        JLabel peakYLabel = new JLabel("Peak Y");
-        peakYResultLabel = new JLabel("_");
-        JLabel interceptXLabel = new JLabel("Intercept X");
-        interceptXResultLabel = new JLabel("_");
 
-        // JFields:
-        velocityField = new JTextField();
 
 
         // JSlider:
-        angleSlider = new JSlider(0, 90, 0);
-        angleSlider.setMajorTickSpacing(15);
-        angleSlider.setMinorTickSpacing(1);
-        angleSlider.setPaintTicks(true);
-        angleSlider.setPaintLabels(true);
+
 
 
         //add:
         JLabel velocityLabel = new JLabel("Velocity");
         add(velocityLabel);
+
+        velocityField = new JTextField();
         add(velocityField);
+
+        JLabel angleLabel = new JLabel("Angle");
         add(angleLabel);
+
+        angleSlider = new JSlider(0, 90, 0);
+        angleSlider.setMajorTickSpacing(15);
+        angleSlider.setMinorTickSpacing(1);
+        angleSlider.setPaintTicks(true);
+        angleSlider.setPaintLabels(true);
         add(angleSlider);
+
+        JLabel secondsLabel = new JLabel("Seconds");
         add(secondsLabel);
+
         secondsField = new JTextField();
         add(secondsField);
+
+        JLabel xLabel = new JLabel("x");
         add(xLabel);
-        add(xResultLabel);
+
+        resultLabelX = new JLabel("_");
+        add(resultLabelX);
+
+        JLabel yLabel = new JLabel("y");
         add(yLabel);
-        add(yResultLabel);
+
+        resultLabelY = new JLabel("_");
+        add(resultLabelY);
+
+        JLabel peakYLabel = new JLabel("Peak Y");
         add(peakYLabel);
-        add(peakYResultLabel);
+
+        resultLabelPeakY = new JLabel("_");
+        add(resultLabelPeakY);
+
+        JLabel interceptXLabel = new JLabel("Intercept X");
         add(interceptXLabel);
-        add(interceptXResultLabel);
+
+        resultLabelInterceptX = new JLabel("_");
+        add(resultLabelInterceptX);
+
+        JLabel blankLabel = new JLabel();
         add(blankLabel);
-        //JButton:
+
         JButton calculateButton = new JButton("Calculate");
         add(calculateButton);
 
@@ -117,10 +131,10 @@ public class ProjectileFrame extends JFrame
                     Double.parseDouble(secondsField.getText())
             );
             // display info
-            xResultLabel.setText(Double.toString(projectile.getX()));
-            yResultLabel.setText(Double.toString(projectile.getY()));
-            peakYResultLabel.setText(Double.toString(projectile.getPeakY()));
-            interceptXResultLabel.setText(Double.toString(projectile.getInterceptX()));
+            resultLabelX.setText(Double.toString(projectile.getX()));
+            resultLabelY.setText(Double.toString(projectile.getY()));
+            resultLabelPeakY.setText(Double.toString(projectile.getPeakY()));
+            resultLabelInterceptX.setText(Double.toString(projectile.getInterceptX()));
         }
         catch (NumberFormatException e)
         {
