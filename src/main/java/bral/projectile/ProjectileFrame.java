@@ -26,16 +26,6 @@ public class ProjectileFrame extends JFrame
 
         setLayout(new GridLayout(8, 2));
 
-
-
-
-
-
-        // JSlider:
-
-
-
-        //add:
         JLabel velocityLabel = new JLabel("Velocity");
         add(velocityLabel);
 
@@ -58,26 +48,26 @@ public class ProjectileFrame extends JFrame
         secondsField = new JTextField();
         add(secondsField);
 
-        JLabel xLabel = new JLabel("x");
-        add(xLabel);
+        JLabel labelX = new JLabel("x");
+        add(labelX);
 
         resultLabelX = new JLabel("_");
         add(resultLabelX);
 
-        JLabel yLabel = new JLabel("y");
-        add(yLabel);
+        JLabel labelY = new JLabel("y");
+        add(labelY);
 
         resultLabelY = new JLabel("_");
         add(resultLabelY);
 
-        JLabel peakYLabel = new JLabel("Peak Y");
-        add(peakYLabel);
+        JLabel labelPeakY = new JLabel("Peak Y");
+        add(labelPeakY);
 
         resultLabelPeakY = new JLabel("_");
         add(resultLabelPeakY);
 
-        JLabel interceptXLabel = new JLabel("Intercept X");
-        add(interceptXLabel);
+        JLabel labelInterceptX = new JLabel("Intercept X");
+        add(labelInterceptX);
 
         resultLabelInterceptX = new JLabel("_");
         add(resultLabelInterceptX);
@@ -138,7 +128,7 @@ public class ProjectileFrame extends JFrame
         }
         catch (NumberFormatException e)
         {
-            e.getMessage();
+
         }
 
     }
