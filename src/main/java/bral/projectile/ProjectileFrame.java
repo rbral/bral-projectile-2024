@@ -128,7 +128,7 @@ public class ProjectileFrame extends JFrame
         }
         catch (NumberFormatException e)
         {
-
+            System.out.println("Did not fill in all fields.");
         }
 
     }
