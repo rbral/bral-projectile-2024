@@ -13,7 +13,7 @@ public class ProjectileGraph extends JComponent
         super.paintComponent(g);
         // to move the origin
         g.translate(0, getHeight());
-        g.drawString("(100, 100)", 100, -100);
+        /*g.drawString("(100, 100)", 100, -100);
         g.setColor(Color.DARK_GRAY);
         g.drawLine(0, 0, getWidth(), -getHeight());
         g.drawRect(200, -200, 50, 50);
@@ -23,31 +23,33 @@ public class ProjectileGraph extends JComponent
         g.drawOval(200, -200, 50, 50);
 
         // draw some values of projectile
-        g.fillOval((int) projectile.getX(), (int) -projectile.getY(), 10, 10);
+        g.fillOval((int) projectile.getX(), (int) -projectile.getY(), 10, 10);*/
 
-        // time when projectile is at peak:
-        g.setColor(Color.BLUE);
-        double apexTime = projectile.getApexTime();
-        projectile.setSeconds(apexTime);
-        g.fillOval((int) projectile.getX(), (int) projectile.getPeakY(), 10, 10);
-
-
+        g.setColor(Color.DARK_GRAY);
         // draw path of projectile:
+        double oldX = 0;
+        double oldY = 0;
+        double newX;
+        double newY;
+        for (double i = 0.0; i < (projectile.getApexTime() * 2); i += 0.1)
+        {
+            projectile.setSeconds(i);
+            newX = projectile.getX();
+            newY = projectile.getY();
+            g.drawLine((int) oldX, (int) -oldY,
+                    (int) newX, (int) -newY);
+            oldX = newX;
+            oldY = newY;
 
-        /*int numPoints = 100;
-        int[] xPoints = new int[numPoints];
-        int[] yPoints = new int[numPoints];
+            if (Math.abs(i - projectile.getApexTime()) < 0.05)
+            {
+                g.setColor(Color.BLUE);
+                g.fillOval((int) newX - 5, (int) -newY - 5, 10, 10);
+                g.setColor(Color.DARK_GRAY);
+            }
 
-        for (int i = 0; i < numPoints; i++) {
-            double t = i * projectile.getSeconds() / numPoints;
-            double x = projectile.getXAtTime(t);
-            double y = projectile.getYAtTime(t);
-            xPoints[i] = (int) x;
-            yPoints[i] = (int) -y; // Invert Y-axis for screen coordinates
+            repaint();
         }
-
-        g.drawPolyline(xPoints, yPoints, numPoints);*/
-
 
     }
 
