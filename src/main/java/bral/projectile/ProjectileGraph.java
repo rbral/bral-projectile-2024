@@ -8,6 +8,7 @@ public class ProjectileGraph extends JComponent
     Projectile projectile = new Projectile(0, 0);
     // method that you can use to draw to screen:
     // code > override methods > paint component
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
