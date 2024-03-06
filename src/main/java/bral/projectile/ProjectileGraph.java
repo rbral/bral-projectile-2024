@@ -32,8 +32,7 @@ public class ProjectileGraph extends JComponent
         double oldY = 0;
         double newX;
         double newY;
-        for (double i = 0.0; i < (projectile.getApexTime() * 2); i += 0.1)
-        {
+        for (double i = 0.0; i < (projectile.getApexTime() * 2); i += 0.1) {
             projectile.setSeconds(i);
             newX = projectile.getX();
             newY = projectile.getY();
@@ -41,24 +40,25 @@ public class ProjectileGraph extends JComponent
                     (int) newX, (int) -newY);
             oldX = newX;
             oldY = newY;
-
-            if (Math.abs(i - projectile.getApexTime()) < 0.05)
-            {
-                g.setColor(Color.BLUE);
-                g.fillOval((int) newX - 5, (int) -newY - 5, 10, 10);
-                g.setColor(Color.DARK_GRAY);
-            }
-
-            repaint();
         }
+        repaint();
 
+        // indicate point where projectile is at peak
+        g.setColor(Color.BLUE);
+        double apexTime = projectile.getApexTime();
+        projectile.setSeconds(apexTime);
+        newX = projectile.getX();
+        newY = projectile.getY();
+        g.fillOval((int) newX - 5, (int) -newY - 5, 10, 10);
+        g.setColor(Color.DARK_GRAY);
+        repaint();
     }
 
     public void setProjectile(Projectile projectile)
     {
         this.projectile = projectile;
 
-        // tells the OS to call painComponent again:
+        // tells the OS to call paintComponent again:
         repaint();
     }
 
