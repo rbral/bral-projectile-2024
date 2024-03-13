@@ -24,65 +24,76 @@ public class ProjectileFrame extends JFrame
 
     private JLabel resultLabelInterceptX;
 
+    private ProjectileGraph graph;
+
     public ProjectileFrame()
     {
-        setSize(400, 600);
+        setSize(1000, 800);
         setTitle("Projectile Calculate");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(8, 2));
+        JPanel main = new JPanel();
+        main.setLayout(new BorderLayout());
+        // tells the JFrame to use this JPanel
+        setContentPane(main);
+
+        JPanel west = new JPanel();
+        // put the panel I'm calling west in the WEST part of the screen:
+        main.add(west, BorderLayout.WEST);
+
+        west.setLayout(new GridLayout(8, 2));
 
         JLabel velocityLabel = new JLabel("Velocity");
-        add(velocityLabel);
+        west.add(velocityLabel);
 
         velocityField = new JTextField();
-        add(velocityField);
+        west.add(velocityField);
 
         JLabel angleLabel = new JLabel("Angle");
-        add(angleLabel);
+        west.add(angleLabel);
 
         angleSlider = new JSlider(0, 90, 0);
         angleSlider.setMajorTickSpacing(15);
         angleSlider.setMinorTickSpacing(1);
         angleSlider.setPaintTicks(true);
         angleSlider.setPaintLabels(true);
-        add(angleSlider);
+        west.add(angleSlider);
 
         JLabel secondsLabel = new JLabel("Seconds");
-        add(secondsLabel);
+        west.add(secondsLabel);
 
         secondsField = new JTextField();
-        add(secondsField);
+        west.add(secondsField);
 
         JLabel labelX = new JLabel("x");
-        add(labelX);
+        west.add(labelX);
 
         resultLabelX = new JLabel("_");
-        add(resultLabelX);
+        west.add(resultLabelX);
 
         JLabel labelY = new JLabel("y");
-        add(labelY);
+        west.add(labelY);
 
         resultLabelY = new JLabel("_");
-        add(resultLabelY);
+        west.add(resultLabelY);
 
         JLabel labelPeakY = new JLabel("Peak Y");
-        add(labelPeakY);
+        west.add(labelPeakY);
 
         resultLabelPeakY = new JLabel("_");
-        add(resultLabelPeakY);
+        west.add(resultLabelPeakY);
 
         JLabel labelInterceptX = new JLabel("Intercept X");
-        add(labelInterceptX);
+        west.add(labelInterceptX);
 
         resultLabelInterceptX = new JLabel("_");
-        add(resultLabelInterceptX);
+        west.add(resultLabelInterceptX);
 
         JLabel blankLabel = new JLabel();
-        add(blankLabel);
+        west.add(blankLabel);
 
         JButton calculateButton = new JButton("Calculate");
-        add(calculateButton);
+        west.add(calculateButton);
 
         // calling methods to recalculate and display automatically:
         velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
@@ -93,6 +104,10 @@ public class ProjectileFrame extends JFrame
 
         // a listener that does something when the button is clicked
         calculateButton.addActionListener(e -> recalculateAndDisplay());
+
+        // put graph in center
+        graph = new ProjectileGraph();
+        main.add(graph, BorderLayout.CENTER);
 
     }
 
@@ -107,6 +122,10 @@ public class ProjectileFrame extends JFrame
             projectile.setSeconds(
                     Double.parseDouble(secondsField.getText())
             );
+
+            // set the projectile info to the graph
+            graph.setProjectile(projectile);
+
             // display info
             resultLabelX.setText(Double.toString(projectile.getX()));
             resultLabelY.setText(Double.toString(projectile.getY()));
