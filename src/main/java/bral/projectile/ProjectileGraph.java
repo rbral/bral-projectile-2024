@@ -25,10 +25,30 @@ public class ProjectileGraph extends JComponent
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(Color.LIGHT_GRAY);
-        g.drawLine(0, 0, 0, getHeight());
+        // vertical lines
+        /*for (int x = 0; x < getWidth(); x += 30)
+        {
+            g.drawLine(x, 0, getWidth(), 0);
+        }*/
+        for (int x = 0; x < getWidth(); x += 30) {
+            g.drawLine(x, 0, x, getHeight());
+        }
+
+        // Draw horizontal lines
+        for (int y = 0; y < getHeight(); y += 30) {
+            g.drawLine(0, y, getWidth(), y);
+        }
+
+        g.setColor(Color.BLACK);
+        g.drawLine(30, -30, 30, -getHeight());
+        g.drawLine(30, -30, getWidth(), -30);
+
+
 
         // to move the origin
-        g.translate(0, getHeight());
+        g.translate(30, getHeight()-30);
+
+
 
 
 
