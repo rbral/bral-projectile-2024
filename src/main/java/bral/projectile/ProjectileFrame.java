@@ -1,20 +1,24 @@
 package bral.projectile;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import java.text.DecimalFormat;
 
 public class ProjectileFrame extends JFrame
 {
-    private JTextField velocityField;
+//    private JTextField velocityField;
+
+    private static final DecimalFormat FORMAT = new DecimalFormat("0.00");
+
+    private JSlider velocitySlider;
+
+    private JLabel resultLabelVelocity;
 
     private JTextField secondsField;
 
     private JSlider angleSlider;
+
+    private JLabel resultLabelAngle;
 
     private JLabel resultLabelX;
 
@@ -32,6 +36,7 @@ public class ProjectileFrame extends JFrame
         setTitle("Projectile Calculate");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
         // tells the JFrame to use this JPanel
@@ -41,28 +46,44 @@ public class ProjectileFrame extends JFrame
         // put the panel I'm calling west in the WEST part of the screen:
         main.add(west, BorderLayout.WEST);
 
-        west.setLayout(new GridLayout(8, 2));
+        west.setLayout(new GridLayout(10, 2));
 
         JLabel velocityLabel = new JLabel("Velocity");
         west.add(velocityLabel);
 
-        velocityField = new JTextField();
-        west.add(velocityField);
+        velocitySlider = new JSlider(0, 100, 65);
+        west.add(velocitySlider);
+
+        JLabel blankLabel1 = new JLabel();
+        west.add(blankLabel1);
+
+        resultLabelVelocity = new JLabel("-");
+        west.add(resultLabelVelocity);
+
+
+        /*velocityField = new JTextField();
+        west.add(velocityField);*/
 
         JLabel angleLabel = new JLabel("Angle");
         west.add(angleLabel);
 
-        angleSlider = new JSlider(0, 90, 0);
+        angleSlider = new JSlider(0, 90, 31);
         angleSlider.setMajorTickSpacing(15);
         angleSlider.setMinorTickSpacing(1);
         angleSlider.setPaintTicks(true);
         angleSlider.setPaintLabels(true);
         west.add(angleSlider);
 
+        JLabel blankLabel2 = new JLabel();
+        west.add(blankLabel2);
+
+        resultLabelAngle = new JLabel("-");
+        west.add(resultLabelAngle);
+
         JLabel secondsLabel = new JLabel("Seconds");
         west.add(secondsLabel);
 
-        secondsField = new JTextField();
+        secondsField = new JTextField("2.7");
         west.add(secondsField);
 
         JLabel labelX = new JLabel("x");
@@ -89,14 +110,15 @@ public class ProjectileFrame extends JFrame
         resultLabelInterceptX = new JLabel("_");
         west.add(resultLabelInterceptX);
 
-        JLabel blankLabel = new JLabel();
-        west.add(blankLabel);
+        JLabel blankLabel3 = new JLabel();
+        west.add(blankLabel3);
 
         JButton calculateButton = new JButton("Calculate");
         west.add(calculateButton);
 
         // calling methods to recalculate and display automatically:
-        velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
+//        velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
+        velocitySlider.addChangeListener(e -> recalculateAndDisplay());
 
         secondsField.getDocument().addDocumentListener((SimpleDocumentListener) e -> recalculateAndDisplay());
 
@@ -117,7 +139,8 @@ public class ProjectileFrame extends JFrame
         {
             Projectile projectile = new Projectile(
                     angleSlider.getValue(),
-                    Double.parseDouble(velocityField.getText())
+                    velocitySlider.getValue()
+//                    Double.parseDouble(velocityField.getText())
             );
             projectile.setSeconds(
                     Double.parseDouble(secondsField.getText())
@@ -127,10 +150,12 @@ public class ProjectileFrame extends JFrame
             graph.setProjectile(projectile);
 
             // display info
-            resultLabelX.setText(Double.toString(projectile.getX()));
-            resultLabelY.setText(Double.toString(projectile.getY()));
-            resultLabelPeakY.setText(Double.toString(projectile.getPeakY()));
-            resultLabelInterceptX.setText(Double.toString(projectile.getInterceptX()));
+            resultLabelVelocity.setText(String.valueOf(velocitySlider.getValue()));
+            resultLabelAngle.setText(String.valueOf(angleSlider.getValue()));
+            resultLabelX.setText(FORMAT.format(projectile.getX()));
+            resultLabelY.setText(FORMAT.format(projectile.getY()));
+            resultLabelPeakY.setText(FORMAT.format(projectile.getPeakY()));
+            resultLabelInterceptX.setText(FORMAT.format(projectile.getInterceptX()));
         } catch (NumberFormatException e)
         {
             e.printStackTrace();
