@@ -2,29 +2,71 @@ package bral.projectile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+
+import static java.lang.Math.round;
 
 public class ProjectileGraph extends JComponent
 {
-    Projectile projectile = new Projectile(0, 0);
+    Projectile initialProjectile = new Projectile(31, 65);
+//    initialProjectile.setSeconds(2.7);
+
+    Projectile projectile = new Projectile(initialProjectile);
     // method that you can use to draw to screen:
     // code > override methods > paint component
+
+    private static final DecimalFormat FORMAT = new DecimalFormat("0.00");
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // to move the origin
-        g.translate(0, getHeight());
-        /*g.drawString("(100, 100)", 100, -100);
-        g.setColor(Color.DARK_GRAY);
-        g.drawLine(0, 0, getWidth(), -getHeight());
-        g.drawRect(200, -200, 50, 50);
-        g.setColor(Color.MAGENTA);
-        g.fillRect(400, -400, 25, 25);
-        g.setColor(Color.ORANGE);
-        g.drawOval(200, -200, 50, 50);
 
-        // draw some values of projectile
-        g.fillOval((int) projectile.getX(), (int) -projectile.getY(), 10, 10);*/
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        g.setColor(Color.LIGHT_GRAY);
+        // vertical lines
+        /*for (int x = 0; x < getWidth(); x += 30)
+        {
+            g.drawLine(x, 0, getWidth(), 0);
+        }*/
+        for (int x = 0; x < getWidth(); x += 30) {
+            g.drawLine(x, 0, x, getHeight());
+        }
+
+        // Draw horizontal lines
+        for (int y = 0; y < getHeight(); y += 30) {
+            g.drawLine(0, y, getWidth(), y);
+        }
+
+        g.setColor(Color.BLACK);
+        g.drawLine(30, -30, 30, -getHeight());
+        g.drawLine(30, -30, getWidth(), -30);
+
+
+
+        // to move the origin
+        g.translate(30, getHeight()-30);
+
+
+
+
+
+//        g.drawString("(100, 100)", 100, -100);
+//        g.setColor(Color.DARK_GRAY);
+//        g.drawLine(0, 0, getWidth(), -getHeight());
+//        g.drawRect(200, -200, 50, 50);
+//        g.setColor(Color.MAGENTA);
+
+//        g.setColor(Color.ORANGE);
+//        g.drawOval(200, -200, 50, 50);
+//
+//        // draw some values of projectile
+//        g.fillOval((int) projectile.getX(), (int) -projectile.getY(), 10, 10);
+
+        // light gray rule lines:
+        g.setColor(Color.LIGHT_GRAY);
+//        for (int i = 0; i < get)
 
         g.setColor(Color.DARK_GRAY);
         // draw path of projectile:
@@ -32,26 +74,40 @@ public class ProjectileGraph extends JComponent
         double oldY = 0;
         double newX;
         double newY;
-        for (double i = 0.0; i < (projectile.getApexTime() * 2); i += 0.1) {
-            projectile.setSeconds(i);
-            newX = projectile.getX();
-            newY = projectile.getY();
+        Projectile copyProjectile = new Projectile(projectile);
+
+        for (double i = 0.0; i < (copyProjectile.getApexTime() * 2); i += 0.1) {
+            copyProjectile.setSeconds(i);
+            newX = copyProjectile.getX();
+            newY = copyProjectile.getY();
             g.drawLine((int) oldX, (int) -oldY,
                     (int) newX, (int) -newY);
             oldX = newX;
             oldY = newY;
         }
-        repaint();
 
-        // indicate point where projectile is at peak
+        // indicate point at seconds in RED
+        g.setColor(Color.RED);
+        double currX = projectile.getX();
+        double currY = projectile.getY();
+        g.fillOval((int) currX - 5, (int) -currY - 5, 10, 10);
+        // write coordinates
+        g.drawString(("(" + FORMAT.format(currX) + ", " + FORMAT.format(currY) + ")"),
+                ( (int) currX - 30 ), ( (int) -currY - 20 ));
+
+        // indicate point where projectile is at peak in BLUE
         g.setColor(Color.BLUE);
-        double apexTime = projectile.getApexTime();
-        projectile.setSeconds(apexTime);
-        newX = projectile.getX();
-        newY = projectile.getY();
+        double apexTime = copyProjectile.getApexTime();
+        copyProjectile.setSeconds(apexTime);
+        newX = copyProjectile.getX();
+        newY = copyProjectile.getY();
         g.fillOval((int) newX - 5, (int) -newY - 5, 10, 10);
+        // write coordinates
+        g.drawString( ("(" + FORMAT.format(newX) + ", " + FORMAT.format(newY) + ")"),
+                ( (int) newX - 30 ), ( (int) -newY - 20 ));
+
         g.setColor(Color.DARK_GRAY);
-        repaint();
+
     }
 
     public void setProjectile(Projectile projectile)
